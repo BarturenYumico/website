@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Yumico Barturen</title>
+    <link rel="stylesheet" type="text/css" href="estilos.css">
+</head>
+<style>
+    /* Estilos para el encabezado */
+header {
+    background-color: #333;
+    color: #f02323;
+    padding: 20px;
+    position: left;
+    
+}
+
+header h1 {
+    margin: 0;
+}
+
+/* Estilos para la barra de navegación */
+nav {
+    background-color: #f2f2f2;
+    padding: 10px;
+    display: flex;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #333;
+    padding: 10px;
+}
+
+/* Estilos para el contenido principal */
+main {
+    margin: 10px;
+    display: -moz-inline-grid;
+}
+
+/* Estilos para el pie de página */
+footer {
+    
+    background-color: #ffffff;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: #094e69;
+    padding: 20px;
+    text-align: center;
+    
+}
+/* Estilos para la cuadrícula */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 20px;
+    padding: 20px;
+    width: 600px; /* Ancho del carrusel */
+    height: 400px; /* Alto del carrusel */
+    position: relative;
+    overflow: hidden;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.grid-item {
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+/* Estilo para la barra de búsqueda */
+.search-container {
+  display: flex;
+  justify-content: flex-end;
+  
+}
+
+.search-container form {
+  display: flex;
+  padding: 8px 16px;
+  padding: 8px;
+  color: #e6131300;
+  border: 1px solid #cccccc00;
+  border-radius: 4px;
+  font-size: 14px;
+ 
+}
+
+.search-container input[type="search"] {
+  margin-right: 10px;
+  padding: 8px 16px;
+  background-color: #0ac21000;
+  color: rgb(255, 255, 255);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  
+}
+
+
+.search-container input[type="submit"] {
+  padding: 8px 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.slide {
+        position: 50px 50px;
+        box-shadow: 0px 1px 6px rgba(0, 0, 0, 0);
+        margin-top: 30px;
+            }
+.slide-inner {
+    
+    width: 400px;
+    height: 400px; /* originalmente 600px */
+    overflow: hidden;
+    position: relative;
+    border-radius: 15px;
+}
+.slide-open:checked + .slide-item {
+    position: static;
+    opacity: 80;
+}
+.slide-item {
+    position: absolute;
+    opacity: 0;
+    -webkit-transition: opacity 0.6s ease-out;
+    transition: opacity 0.6s ease-out;
+}
+.slide-item img {
+    display: block;
+    height: auto;
+    max-width: 100%;
+}
+.slide-control {
+    background: rgba(0, 0, 0, 0.28);
+    border-radius: 45%;
+    color: #fff;
+    cursor: pointer;
+    display: none;
+    font-size: 40px;
+    height: 40px;
+    line-height: 35px;
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translate(0, -50%);
+    cursor: pointer;
+    -ms-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    text-align: center;
+    width: 40px;
+    z-index: 10;
+}
+.slide-control.prev {
+    left: 2%;
+}
+.slide-control.next {
+    right: 2%;
+}
+.slide-control:hover {
+    background: rgba(0, 0, 0, 0.8);
+    color: #aaaaaa;
+}
+#slide-1:checked ~ .control-1,
+#slide-2:checked ~ .control-2,
+#slide-3:checked ~ .control-3 {
+    display: block;
+}
+.slide-indicador {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    bottom: 2%;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 10;
+}
+.slide-indicador li {
+    display: inline-block;
+    margin: 0 5px;
+}
+.slide-circulo {
+    color: #828282;
+    cursor: pointer;
+    display: block;
+    font-size: 35px;
+}
+.slide-circulo:hover {
+     color: #aaaaaa;
+}
+#slide-1:checked ~ .control-1 ~ .slide-indicador 
+        li:nth-child(1) .slide-circulo,
+ #slide-2:checked ~ .control-2 ~ .slide-indicador 
+        li:nth-child(2) .slide-circulo,
+#slide-3:checked ~ .control-3 ~ .slide-indicador 
+        li:nth-child(3) .slide-circulo {
+    color: #5c2d56;
+}
+/*Menu*/
+.empleo_info {
+    text-align: center;
+}
+
+.empleo_icon {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    display: flexbox;
+    justify-content: flex-end;
+}
+
+.empleo{
+    width: 100%;
+    max-height: 100%;
+    padding: 10px 0;
+    display: flexbox;
+}
+
+.empleo h1{
+    font-size: 55px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.empleo h1 span{
+    color: #fa318f;
+    margin-left: 15px;
+    font-family: mv boli;
+}
+
+.empleo h1 span::after{
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: #fa318f;
+    display: grid;
+    position: relative;
+    bottom: 20px;
+}
+
+.empleo .empleo_box{
+    width: 95%;
+    margin: 0 auto;
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 15px;
+}
+
+.empleo .empleo_box .empleo_card{
+    padding: 4px;
+    text-align: center;
+    display: grid;
+    width: 280px;
+    height: 500px;
+    padding-top: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.empleo .empleo_box .empleo_card .empleo_image{
+    width: 260px;
+    height: 260px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.empleo .empleo_box .empleo_card .empleo_image img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: 0.9s;
+}
+
+.empleo .empleo_box .empleo_card .empleo_image:hover img{
+    transform: scale(1.1);
+}
+
+.empleo .empleo_box .empleo_card .small_card{
+    width: 45px;
+    height: 45px;
+    float: right;
+    position: relative;
+    top: -100px;
+    right: -8px;
+    opacity: 0;
+    border-radius: 7px;
+    transition: 0.3s;
+}
+
+.empleo .empleo_box .empleo_card:hover .small_card{
+    position: relative;
+    top: -240px;
+    right: 20px;
+    opacity: 1;
+}
+
+.empleo .empleo_box .empleo_card .small_card i{
+    font-size: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 50px;
+    color: #ff0000;
+    cursor: pointer;
+    text-shadow: 0 0 6px #000;
+    transition: 0.2s;
+}
+
+.empleo .empleo_box .empleo_card .small_card i:hover{
+    color: #fa318f;
+}
+
+.empleo .empleo_box .empleo_card .empleo_info h2{
+    width: 60%;
+    text-align: center;
+    margin: 10px auto 10px auto;
+    font-size: 25px;
+    color: #fa318f;
+}
+/**/
+.empleo .empleo_box .empleo_card .empleo_info p{
+    /*interlineado*/
+    text-align: center;
+    margin-top: 8px;
+    line-height: 21px;
+}
+
+.empleo .empleo_box .empleo_card .empleo_info h3{
+    text-align: center;
+    margin-top: 10px;
+}
+.menu .empleo_box .empleo_card .empleo_info .empleo_icon{
+    color: #fac031;
+    text-align: center;
+    margin: 10px 0 10px 0;
+}
+
+.empleo .empleo_box .empleo_card .empleo_info .empleo_btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: white;
+    background: #000;
+    padding: 8px 10px;
+    margin: 0 80px;
+    transition: 0.3s;
+}
+
+</style>
+<body>
+    <header>
+        <h1>Yumico Barturen</h1>
+        <div class="search-container">
+  <form>
+    <input type="search" placeholder="Buscar..." name="busqueda">
+    <input type="submit" value="Buscar">
+  </form>
+</div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#">Inicio</a></li>
+            <li><a href="#">Sobre mi</a></li>
+            <li><a href="#">Lenguajes</a></li>
+            <li><a href="#">Contacto</a></li>
+        </ul>
+    </nav>
+    <main>
+        <h2>Contenido Principal</h2>
+        <p>Este es el contenido principal de la página.</p>
+        <div class="slide">
+            <div class="slide-inner">
+                <input class="slide-open" type="radio" id="slide-1" 
+                      name="slide" aria-hidden="true" hidden="" checked="checked">
+                <div class="slide-item">
+                    <img src="fotos/20220606_200335.jpg">
+                </div>
+                <input class="slide-open" type="radio" id="slide-2" 
+                      name="slide" aria-hidden="true" hidden="">
+                <div class="slide-item">
+                    <img src="fotos/20220606_195552.jpg">
+                </div>
+                <input class="slide-open" type="radio" id="slide-3" 
+                      name="slide" aria-hidden="true" hidden="">
+                <div class="slide-item">
+                    <img src="fotos/20220606_200333.jpg">
+                </div>
+                <label for="slide-3" class="slide-control prev control-1">‹</label>
+                <label for="slide-2" class="slide-control next control-1">›</label>
+                <label for="slide-1" class="slide-control prev control-2">‹</label>
+                <label for="slide-3" class="slide-control next control-2">›</label>
+                <label for="slide-2" class="slide-control prev control-3">‹</label>
+                <label for="slide-1" class="slide-control next control-3">›</label>
+                <ol class="slide-indicador">
+                    <li>
+                        <label for="slide-1" class="slide-circulo">•</label>
+                    </li>
+                    <li>
+                        <label for="slide-2" class="slide-circulo">•</label>
+                    </li>
+                    <li>
+                        <label for="slide-3" class="slide-circulo">•</label>
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <div class="empleo" id="Empleos">
+            <h1>Los<span>Lenguajes</span><span> </span>que domino</h1>
+    
+            <div class="empleo_box">
+                <div class="empleo_card">
+    
+                    <div class="empleo_image">
+                        <img src="fotos/HTML.png">
+                    </div>
+    
+                    <div class="small_card">
+                        <i class="fa-solid fa-heart"></i>
+                    </div>
+    
+                    <div class="empleo_info">
+                        <h2> Html </h2>
+                        <p>
+                            ¡Es el código que se utiliza para estructurar y desplegar una página web y sus contenidos.!
+                        </p>
+                        <div class="empleo_icon">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star-half-stroke"></i>
+                        </div>
+                        <a href="https://developer.mozilla.org/es/docs/Learn/Getting_started_with_the_web/HTML_basics" class="empleo_btn">Leer mas</a>
+                    </div>
+    
+                </div> 
+                
+                <div class="empleo_card">
+    
+                    <div class="empleo_image">
+                        <img src="fotos/c++.png">
+                    </div>
+    
+                    <div class="small_card">
+                        <i class="fa-solid fa-heart"></i>
+                    </div>
+    
+                    <div class="empleo_info">
+                        <h2>C++ en Visual Studio</h2>
+                        <p>
+                            C++ es un lenguaje de programación orientado a objetos muy potente.
+                        </p>
+                        <div class="empleo_icon">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star-half-stroke"></i>
+                        </div>
+                        <a href="https://es.wikipedia.org/wiki/Microsoft_Visual_C%2B%2B" class="empleo_btn">Leer mas</a>
+                    </div>
+    
+                </div> 
+    
+                <div class="empleo_card">
+    
+                    <div class="empleo_image">
+                        <img src="fotos/Python.svg.png">
+                    </div>
+    
+                    <div class="small_card">
+                        <i class="fa-solid fa-heart"></i>
+                    </div>
+    
+                    <div class="empleo_info">
+                        <h2>Python</h2>
+                        <p>
+                            ¡Es un lenguaje de programación ampliamente utilizado en las aplicaciones web y la ciencia de datos.
+                        </p>
+                        <div class="empleo_icon">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star-half-stroke"></i>
+                        </div>
+                        <a href="https://www.cursosaula21.com/que-es-python/" class="empleo_btn">Leer mas</a>
+                    </div>
+    
+                </div> 
+    
+                <div class="empleo_card">
+    
+                    <div class="empleo_image">
+                        <img src="fotos/java.png">
+                    </div>
+    
+                    <div class="small_card">
+                        <i class="fa-solid fa-heart"></i>
+                    </div>
+    
+                    <div class="empleo_info">
+                        <h2>JavaScrip</h2>
+                        <p>
+                            ¡Se define como orientado a objetos,basado en prototipos, imperativo, débilmente tipado y dinámico.!
+                        </p>
+                        
+                        <div class="empleo_icon">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star-half-stroke"></i>
+                        </div>
+                        <a href="https://es.wikipedia.org/wiki/JavaScript" class="empleo_btn">Leer mas</a>
+                    </div>
+    
+                </div> 
+                
+            </div>
+    
+        </div>
+        
+    </main>
+   
+    <footer>
+        <p>Pie de Página</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sitio web ajustable</title>
+    <link rel="stylesheet" type="text/css" href="estilos.css">
+</head>
+<style>/* Estilos generales */
+    body {
+        margin: 0;
+        padding: 0;
+    }
+    
+    /* Contenedor principal utilizando CSS Grid */
+    .contenedor {
+        display: grid;
+        grid-template-rows: auto 1fr auto; /* Filas: encabezado, contenido principal, pie de página */
+        min-height: 100vh; /* Altura mínima del contenedor para ocupar toda la ventana */
+    }
+    
+    /* Estilos para el encabezado, barra de navegación, contenido principal y pie de página */
+    header, nav, main, footer {
+        padding: 20px;
+    }
+    
+    /* Estilos para tamaños de pantalla específicos */
+    @media (max-width: 768px) {
+        /* Estilos para pantallas de hasta 768px de ancho */
+        .contenedor {
+            grid-template-rows: auto 1fr auto; /* Ajustar el diseño de las filas para pantallas pequeñas */
+        }
+        header, nav, main, footer {
+            padding: 10px; /* Ajustar el relleno para pantallas pequeñas */
+        }
+    }
+    
+    @media (max-width: 480px) {
+        /* Estilos para pantallas de hasta 480px de ancho */
+        .contenedor {
+            grid-template-rows: auto 1fr auto; /* Ajustar el diseño de las filas para pantallas aún más pequeñas */
+        }
+        header, nav, main, footer {
+            padding: 5px; /* Ajustar el relleno para pantallas aún más pequeñas */
+        }
+    }
+       /* Estilos para el encabezado */
+header {
+    background-color: #333;
+    color: #f02323;
+    padding: 20px;
+    text-align: center;
+    display: flexboxs;
+}
+
+header h1 {
+    margin: 0;
+}
+
+/* Estilos para la barra de navegación */
+nav {
+    background-color: #f2f2f2;
+    padding: 10px;
+    display: flex;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #333;
+    padding: 10px;
+}
+
+/* Estilos para el contenido principal */
+main {
+    margin: 10px;
+    display: -moz-inline-grid;
+}
+
+/* Estilos para el pie de página */
+footer {
+    
+    background-color: #ffffff;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: #094e69;
+    padding: 20px;
+    text-align: center;
+    
+}
+/* Estilos para la cuadrícula */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 20px;
+    padding: 20px;
+    width: 600px; /* Ancho del carrusel */
+    height: 400px; /* Alto del carrusel */
+    position: relative;
+    overflow: hidden;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.grid-item {
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+/* Estilos para el pie de página */
+footer {
+    background-color: #fff6f600;
+    color: #c96262;
+    padding: 10px;
+    text-align: center;
+}
+.slide {
+        position: 50px 50px;
+        box-shadow: 0px 1px 6px rgba(0, 0, 0, 0);
+        margin-top: 30px;
+            }
+.slide-inner {
+    
+    width: 400px;
+    height: 400px; /* originalmente 600px */
+    overflow: hidden;
+    position: relative;
+    border-radius: 15px;
+}
+.slide-open:checked + .slide-item {
+    position: static;
+    opacity: 80;
+}
+.slide-item {
+    position: absolute;
+    opacity: 0;
+    -webkit-transition: opacity 0.6s ease-out;
+    transition: opacity 0.6s ease-out;
+}
+.slide-item img {
+    display: block;
+    height: auto;
+    max-width: 100%;
+}
+.slide-control {
+    background: rgba(0, 0, 0, 0.28);
+    border-radius: 45%;
+    color: #fff;
+    cursor: pointer;
+    display: none;
+    font-size: 40px;
+    height: 40px;
+    line-height: 35px;
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translate(0, -50%);
+    cursor: pointer;
+    -ms-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    text-align: center;
+    width: 40px;
+    z-index: 10;
+}
+.slide-control.prev {
+    left: 2%;
+}
+.slide-control.next {
+    right: 2%;
+}
+.slide-control:hover {
+    background: rgba(0, 0, 0, 0.8);
+    color: #aaaaaa;
+}
+#slide-1:checked ~ .control-1,
+#slide-2:checked ~ .control-2,
+#slide-3:checked ~ .control-3 {
+    display: block;
+}
+.slide-indicador {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    bottom: 2%;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 10;
+}
+.slide-indicador li {
+    display: inline-block;
+    margin: 0 5px;
+}
+.slide-circulo {
+    color: #828282;
+    cursor: pointer;
+    display: block;
+    font-size: 35px;
+}
+.slide-circulo:hover {
+     color: #aaaaaa;
+}
+#slide-1:checked ~ .control-1 ~ .slide-indicador 
+        li:nth-child(1) .slide-circulo,
+ #slide-2:checked ~ .control-2 ~ .slide-indicador 
+        li:nth-child(2) .slide-circulo,
+#slide-3:checked ~ .control-3 ~ .slide-indicador 
+        li:nth-child(3) .slide-circulo {
+    color: #5c2d56;
+}
+#titulo {
+        width: 100%;
+        position: absolute;
+        padding: 0px;
+        margin: 0px auto;
+        text-align: center;
+        font-size: 27px;
+        color: rgb(236, 2, 2);
+        font-family: 'Open Sans', sans-serif;
+        z-index: 9999;
+        text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.33), -1px 0px 2px rgba(255, 255, 255, 0);
+}
+/*Menu*/
+.empleo_info {
+    text-align: center;
+}
+
+.empleo_icon {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    display: flexbox;
+    justify-content: center;
+}
+
+.empleo{
+    width: 100%;
+    max-height: 100%;
+    padding: 10px 0;
+}
+
+.empleo h1{
+    font-size: 55px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.empleo h1 span{
+    color: #fa318f;
+    margin-left: 15px;
+    font-family: mv boli;
+}
+
+.empleo h1 span::after{
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: #fa318f;
+    display: grid;
+    position: relative;
+    bottom: 20px;
+}
+
+.empleo .empleo_box{
+    width: 95%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 15px;
+}
+
+.empleo .empleo_box .empleo_card{
+    padding: 4px;
+    text-align: center;
+    display: grid;
+    width: 280px;
+    height: 500px;
+    padding-top: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.empleo .empleo_box .empleo_card .empleo_image{
+    width: 260px;
+    height: 260px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.empleo .empleo_box .empleo_card .empleo_image img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: 0.9s;
+}
+
+.empleo .empleo_box .empleo_card .empleo_image:hover img{
+    transform: scale(1.1);
+}
+
+.empleo .empleo_box .empleo_card .small_card{
+    width: 45px;
+    height: 45px;
+    float: right;
+    position: relative;
+    top: -100px;
+    right: -8px;
+    opacity: 0;
+    border-radius: 7px;
+    transition: 0.3s;
+}
+
+.empleo .empleo_box .empleo_card:hover .small_card{
+    position: relative;
+    top: -240px;
+    right: 20px;
+    opacity: 1;
+}
+
+.empleo .empleo_box .empleo_card .small_card i{
+    font-size: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 50px;
+    color: #ff0000;
+    cursor: pointer;
+    text-shadow: 0 0 6px #000;
+    transition: 0.2s;
+}
+
+.empleo .empleo_box .empleo_card .small_card i:hover{
+    color: #fa318f;
+}
+
+.empleo .empleo_box .empleo_card .empleo_info h2{
+    width: 60%;
+    text-align: center;
+    margin: 10px auto 10px auto;
+    font-size: 25px;
+    color: #fa318f;
+}
+/**/
+.empleo .empleo_box .empleo_card .empleo_info p{
+    /*interlineado*/
+    text-align: center;
+    margin-top: 8px;
+    line-height: 21px;
+}
+
+.empleo .empleo_box .empleo_card .empleo_info h3{
+    text-align: center;
+    margin-top: 10px;
+}
+.menu .empleo_box .empleo_card .empleo_info .empleo_icon{
+    color: #fac031;
+    text-align: center;
+    margin: 10px 0 10px 0;
+}
+
+.empleo .empleo_box .empleo_card .empleo_info .empleo_btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: white;
+    background: #000;
+    padding: 8px 10px;
+    margin: 0 80px;
+    transition: 0.3s;
+}
+</style>
+    
+<body>
+        <header>
+            <h1>Yumico Barturen</h1>
+        </header>
+    
+        <nav>
+            <ul>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Sobre mi</a></li>
+                <li><a href="#">Lenguajes</a></li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
+        </nav>
+        <main>
+            <h2>Contenido Principal</h2>
+            <p>Este es el contenido principal de la página.</p>
+            <div class="empleo" id="Empleos">
+                <h1>La<span>Chamba </span>  que buscas</h1>
+        
+                <div class="empleo_box">
+                    <div class="empleo_card">
+        
+                        <div class="empleo_image">
+                            <img src="fotos/20220606_200335.jpg">
+                        </div>
+        
+                        <div class="small_card">
+                            <i class="fa-solid fa-heart"></i>
+                        </div>
+        
+                        <div class="empleo_info">
+                            <h2>Gasfitero</h2>
+                            <p>
+                                ¡Oportunidad para gasfiteros calificados con experiencia y servicio excepcional!
+                            </p>
+                            <div class="empleo_icon">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star-half-stroke"></i>
+                            </div>
+                            <a href="#" class="empleo_btn">Postular ahora</a>
+                        </div>
+        
+                    </div> 
+                    
+                    <div class="empleo_card">
+        
+                        <div class="empleo_image">
+                            <img src="fotos/20220606_200335.jpg">
+                        </div>
+        
+                        <div class="small_card">
+                            <i class="fa-solid fa-heart"></i>
+                        </div>
+        
+                        <div class="empleo_info">
+                            <h2>Ingeniero Electrico</h2>
+                            <p>
+                                Empleo disponible para ingenieros eléctricos especializados.
+                            </p>
+                            <div class="empleo_icon">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star-half-stroke"></i>
+                            </div>
+                            <a href="#" class="empleo_btn">Postular ahora</a>
+                        </div>
+        
+                    </div> 
+        
+                    <div class="empleo_card">
+        
+                        <div class="empleo_image">
+                            <img src="fotos/20220606_200335.jpg">
+                        </div>
+        
+                        <div class="small_card">
+                            <i class="fa-solid fa-heart"></i>
+                        </div>
+        
+                        <div class="empleo_info">
+                            <h2>Limpieza</h2>
+                            <p>
+                                ¡Se busca personal para limpieza pública! Únete a nuestro equipo y trabaja en un entorno dinámico y gratificante.
+                            </p>
+                            <div class="empleo_icon">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star-half-stroke"></i>
+                            </div>
+                            <a href="#" class="empleo_btn">Postular ahora</a>
+                        </div>
+        
+                    </div> 
+        
+                    <div class="empleo_card">
+        
+                        <div class="empleo_image">
+                            <img src="fotos/20220606_200335.jpg">
+                        </div>
+        
+                        <div class="small_card">
+                            <i class="fa-solid fa-heart"></i>
+                        </div>
+        
+                        <div class="empleo_info">
+                            <h2>Programador Web</h2>
+                            <p>
+                                ¡Buscamos programadores web para el desarrollo de aplicaciones innovadoras!
+                            </p>
+                            
+                            <div class="empleo_icon">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star-half-stroke"></i>
+                            </div>
+                            <a href="#" class="empleo_btn">Postula ahora</a>
+                        </div>
+        
+                    </div> 
+        
+                    <div class="empleo_card">
+        
+                        <div class="empleo_image">
+                            <img src="fotos/20220606_200335.jpg">
+                        </div>
+        
+                        <div class="small_card">
+                            <i class="fa-solid fa-heart"></i>
+                        </div>
+        
+                        <div class="empleo_info">
+                            <h2>Cajero</h2>
+                            <p>
+                                ¡Vacante de cajero disponible! Si tienes habilidades en atención al cliente y manejo de transacciones, esta oportunidad es para ti.
+                            </p>
+                           
+                            <div class="empleo_icon">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star-half-stroke"></i>
+                            </div>
+                            <a href="#" class="empleo_btn">Postular ahora</a>
+                        </div>
+        
+                    </div> 
+        
+                    <div class="empleo_card">
+        
+                        <div class="empleo_image">
+                            <img src="fotos/20220606_200335.jpg">
+                        </div>
+        
+                        <div class="small_card">
+                            <i class="fa-solid fa-heart"></i>
+                        </div>
+        
+                        <div class="empleo_info">
+                            <h2>Electricista</h2>
+                            <p>
+                                
+                                ¡Oportunidad laboral para electricistas experimentados! Únete a nuestro equipo y destaca en tu campo.
+                                
+                            </p>
+        
+                            <div class="empleo_icon">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star-half-stroke"></i>
+                            </div>
+                            <a href="#" class="empleo_btn">Postula ahora</a>
+                        </div>
+        
+                    </div> 
+        
+                    <div class="empleo_card">
+        
+                        <div class="empleo_image">
+                            <img src="fotos/20220606_200335.jpg">
+                        </div>
+        
+                        <div class="small_card">
+                            <i class="fa-solid fa-heart"></i>
+                        </div>
+        
+                        <div class="empleo_info">
+                            <h2>Obrero</h2>
+                            <p>
+                                ¡Oportunidad de empleo para obreros ! Únete a nuestro equipo y sé parte de proyectos emocionantes.
+                            </p>
+                            
+                            <div class="empleo_icon">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star-half-stroke"></i>
+                            </div>
+                            <a href="#" class="empleo_btn">Postula ahora</a>
+                        </div>
+        
+                    </div> 
+        
+                    <div class="empleo_card">
+        
+                        <div class="empleo_image">
+                            <img src="img/pintor.jpg">
+                        </div>
+        
+                        <div class="small_card">
+                            <i class="fa-solid fa-heart"></i>
+                        </div>
+        
+                        <div class="empleo_info">
+                            <h2>Pintor</h2>
+                            <p>
+                                Si eres talentoso y apasionado por embellecer hogares, esta es tu oportunidad. ¡Aplica ahora y forma parte de nosotros!
+                            </p>
+                           
+                            <div class="empleo_icon">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star-half-stroke"></i>
+                            </div>
+                            <a href="#" class="empleo_btn">Postula ahora</a>
+                        </div>
+        
+                    </div> 
+        
+                    <div class="empleo_card">
+        
+                        <div class="empleo_image">
+                            <img src="fotos/20220606_200335.jpg">
+                        </div>
+        
+                        <div class="small_card">
+                            <i class="fa-solid fa-heart"></i>
+                        </div>
+        
+                        <div class="empleo_info">
+                            <h2>Fotografo</h2>
+                            <p>
+                                Se busca fotógrafo creativo. ¡Únete a nuestro equipo y captura momentos únicos con tu talento!
+                            </p>
+                            
+                            <div class="empleo_icon">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star-half-stroke"></i>
+                            </div>
+                            <a href="#" class="empleo_btn">Postula ahora</a>
+                        </div>
+        
+                    </div> 
+        
+                    <div class="empleo_card">
+        
+                        <div class="empleo_image">
+                            <img src="fotos/20220606_200335.jpg">
+                        </div>
+        
+                        <div class="small_card">
+                            <i class="fa-solid fa-heart"></i>
+                        </div>
+        
+                        <div class="empleo_info">
+                            <h2>Chef</h2>
+                            <p>
+                                Oportunidad para chefs apasionados. Únete a nuestro equipo y deleita a nuestros comensales con tu talento culinario
+                            </p>
+                           
+                            <div class="empleo_icon">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star-half-stroke"></i>
+                            </div>
+                            <a href="#" class="empleo_btn">Postula ahora</a>
+                        </div>
+        
+                    </div> 
+        
+                    <div class="empleo_card">
+        
+                        <div class="empleo_image">
+                            <img src="img/bartender.jpg">
+                        </div>
+        
+                        <div class="small_card">
+                            <i class="fa-solid fa-heart"></i>
+                        </div>
+        
+                        <div class="empleo_info">
+                            <h2>Bartender</h2>
+                            <p>
+                                ¡Únete a nuestro equipo de bartenders y crea experiencias memorables!.Que esperas sé el alma de nuestra barra!
+                            </p>
+                            
+                            <div class="empleo_icon">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star-half-stroke"></i>
+                            </div>
+                            <a href="#" class="empleo_btn">Postula ahora</a>
+                        </div>
+        
+                    </div> 
+        
+                    <div class="empleo_card">
+        
+                        <div class="empleo_image">
+                            <img src="img/psicologo.jpg">
+                        </div>
+        
+                        <div class="small_card">
+                            <i class="fa-solid fa-heart"></i>
+                        </div>
+        
+                        <div class="empleo_info">
+                            <h2>Psicologo</h2>
+                            <p>
+                                Únete a nuestro equipo como psicólogo y marca la diferencia en la vida de las personas.
+                            </p>
+                          
+                            <div class="empleo_icon">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star-half-stroke"></i>
+                            </div>
+                            <a href="#" class="empleo_btn">Postula ahora</a>
+                        </div>
+        
+                    </div> 
+                    
+                </div>
+        
+            </div>
+            <div class="slide">
+                <div class="slide-inner">
+                    <input class="slide-open" type="radio" id="slide-1" 
+                          name="slide" aria-hidden="true" hidden="" checked="checked">
+                    <div class="slide-item">
+                        <img src="fotos/20220606_200335.jpg">
+                    </div>
+                    <input class="slide-open" type="radio" id="slide-2" 
+                          name="slide" aria-hidden="true" hidden="">
+                    <div class="slide-item">
+                        <img src="fotos/20220606_195552.jpg">
+                    </div>
+                    <input class="slide-open" type="radio" id="slide-3" 
+                          name="slide" aria-hidden="true" hidden="">
+                    <div class="slide-item">
+                        <img src="fotos/20220606_200333.jpg">
+                    </div>
+                    <label for="slide-3" class="slide-control prev control-1">‹</label>
+                    <label for="slide-2" class="slide-control next control-1">›</label>
+                    <label for="slide-1" class="slide-control prev control-2">‹</label>
+                    <label for="slide-3" class="slide-control next control-2">›</label>
+                    <label for="slide-2" class="slide-control prev control-3">‹</label>
+                    <label for="slide-1" class="slide-control next control-3">›</label>
+                    <ol class="slide-indicador">
+                        <li>
+                            <label for="slide-1" class="slide-circulo">•</label>
+                        </li>
+                        <li>
+                            <label for="slide-2" class="slide-circulo">•</label>
+                        </li>
+                        <li>
+                            <label for="slide-3" class="slide-circulo">•</label>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            
+        </main>
+       
+        <footer>
+            <p>Pie de Página</p>
+        </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
